@@ -8,12 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shpp.level4.dto.UserRequestDTO;
 import shpp.level4.entity.User;
-import shpp.level4.exception.UserNotFoundException;
 import shpp.level4.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")

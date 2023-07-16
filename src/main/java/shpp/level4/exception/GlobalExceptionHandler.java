@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
                 .getFieldErrors()
                 .stream().map(FieldError::getDefaultMessage)
                 .toList();
-        if(errors.size() == 0){
+        if(errors.isEmpty()){
             errors = Collections.singletonList(ex.getMessage());
         }
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NumberFormatException.class)
-    public final ResponseEntity<Map<String, List<String>>> handleNumberFormatExceptions(IllegalArgumentException ex) {
+    public final ResponseEntity<Map<String, List<String>>> handleNumberFormatExceptions(NumberFormatException ex) {
         List<String> errors = Collections.singletonList(ex.getMessage());
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }

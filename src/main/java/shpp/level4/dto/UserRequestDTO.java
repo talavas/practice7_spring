@@ -30,6 +30,7 @@ public class UserRequestDTO {
     private LocalDate dateOfBirth;
     @Nullable
     @Size(min = 10, max = 10,  message = "Invalid Tax id: Must be of 10 digits")
+    @Pattern(regexp = "\\d{10}", message = "Tax Id is only digits.")
     private String taxId;
     @ValidGender
     private String gender;

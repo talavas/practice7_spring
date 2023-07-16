@@ -11,10 +11,12 @@ public enum Gender {
 
     public static Gender fromCode(String code) {
         for (Gender gender : Gender.values()) {
-            if (gender.code.equals(code.toUpperCase())) {
+            if (gender.code.equals(code.toUpperCase()) ||
+            code.equals(gender.toString())) {
                 return gender;
             }
         }
+
        throw new IllegalArgumentException("Can't convert code= " + code + " into Gender. Legal symbol M/F/m/f");
     }
 

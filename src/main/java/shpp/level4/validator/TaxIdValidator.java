@@ -22,28 +22,33 @@ public class TaxIdValidator implements ConstraintValidator<ValidTaxId, Object> {
         UserRequestDTO user = (UserRequestDTO) object;
         String taxId = user.getTaxId();
 
-        if(taxId == null) return true;
-        logger.debug("taxId = {}", taxId);
+        if(taxId != null) {
+            logger.debug("taxId = {}", taxId);
 
-        int controlDigit = Integer.parseInt(taxId.substring(9));
-        int calculatedControlDigit = calculateControlDigit(taxId);
-        if(controlDigit != calculatedControlDigit) return false;
+            int controlDigit = Integer.parseInt(taxId.substring(9));
+            int calculatedControlDigit = calculateControlDigit(taxId);
+            if (controlDigit != calculatedControlDigit)
+                throw new IllegalArgumentException("Tax id control code not correct.");
 
 
-        int genderTaxCode = Integer.parseInt(taxId.substring(8,9));
-        Gender genderFromTaxCode = Gender.fromTaxDigit(genderTaxCode);
-        logger.debug("Gender {} from tax code = {}", genderFromTaxCode, genderTaxCode);
-        Gender userGender = Gender.fromCode(user.getGender());
-        logger.debug("User gender = {}", userGender);
-        if(!userGender.equals(genderFromTaxCode)) throw new IllegalArgumentException("Tax id gender code not correct.");
+            int genderTaxCode = Integer.parseInt(taxId.substring(8, 9));
+            Gender genderFromTaxCode = Gender.fromTaxDigit(genderTaxCode);
+            logger.debug("Gender {} from tax code = {}", genderFromTaxCode, genderTaxCode);
+            Gender userGender = Gender.fromCode(user.getGender());
+            logger.debug("User gender = {}", userGender);
+            if (!userGender.equals(genderFromTaxCode))
+                throw new IllegalArgumentException("Tax id gender code not correct.");
 
-        int days = Integer.parseInt(taxId.substring(0, 5));
-        LocalDate birthDate = user.getDateOfBirth();
-        LocalDate birthDateFromTaxId = START_DATE.plusDays(days);
-        return birthDate.equals(birthDateFromTaxId);
+            int days = Integer.parseInt(taxId.substring(0, 5));
+            LocalDate birthDate = user.getDateOfBirth();
+            LocalDate birthDateFromTaxId = START_DATE.plusDays(days);
+            if (!birthDate.equals(birthDateFromTaxId))
+                throw new IllegalArgumentException("Tax id code and Birthday date not valid.");
+        }
+        return true;
     }
 
-    private int calculateControlDigit(String taxId) {
+    protected static int calculateControlDigit(String taxId) {
         int[] coefficients = { -1, 5, 7, 9, 4, 6, 10, 5, 7 };
         int sum = 0;
         for (int i = 0; i < coefficients.length; i++) {

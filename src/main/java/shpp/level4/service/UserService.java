@@ -54,7 +54,7 @@ public class UserService {
             updateUserFields(user, updateUserDTO);
             return userRepository.save(user);
         } else {
-            throw new UserNotFoundException("User not found with id: " + id);
+            throw new UserNotFoundException("No user by ID: " + id);
         }
     }
 
