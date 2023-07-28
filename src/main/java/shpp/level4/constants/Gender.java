@@ -1,8 +1,8 @@
 package shpp.level4.constants;
+
 public enum Gender {
     MALE( "M"),
     FEMALE( "F");
-
     private final String code;
 
     Gender(String code) {
@@ -17,7 +17,7 @@ public enum Gender {
             }
         }
 
-       throw new IllegalArgumentException("Can't convert code= " + code + " into Gender. Legal symbol M/F/m/f");
+       return null;
     }
 
     public static Gender fromTaxDigit(int code){
@@ -26,9 +26,5 @@ public enum Gender {
         }else{
             return MALE;
         }
-    }
-
-    public String getCode() {
-        return code;
     }
 }

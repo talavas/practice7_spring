@@ -16,10 +16,9 @@ public class TaxIdValidator implements ConstraintValidator<ValidTaxId, Object> {
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
-        if(!(object instanceof UserRequestDTO)){
+        if(!(object instanceof UserRequestDTO user)){
             throw new IllegalArgumentException("@ValidTaxId could apply only on UserRequestDTO.");
         }
-        UserRequestDTO user = (UserRequestDTO) object;
         String taxId = user.getTaxId();
 
         if(taxId != null) {

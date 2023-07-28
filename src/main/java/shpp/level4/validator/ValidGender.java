@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidGender {
-    String message() default "Invalid gender";
+    String message() default "{invalid.gender}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,11 +1,11 @@
-package shpp.level4.controller;
+package shpp.level4.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/hello")
+@RequestMapping("/api/v1/hello")
 public class HelloController {
 
     @GetMapping("/{name}")
