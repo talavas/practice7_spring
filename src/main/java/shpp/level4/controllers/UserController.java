@@ -29,7 +29,9 @@ public class UserController {
 
     @PostMapping
     @SecurityRequirement(name = "Bearer Authentication")
-    public ResponseEntity<UserRequestDTO> createUser(@RequestBody @Valid UserRequestDTO userRequest) {
+    public ResponseEntity<UserRequestDTO> createUser(
+            @RequestBody @Valid UserRequestDTO userRequest,
+            @RequestParam(required = false) String lang) {
         logger.debug("User create request = {}", userRequest);
         User user = userService.findByUserName(userRequest.getUsername());
         if(user != null){

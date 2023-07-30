@@ -1,10 +1,10 @@
 package shpp.level4.configs;
 
-
-
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.boot.info.BuildProperties;
@@ -29,6 +29,16 @@ public class OpenAPI30Config {
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")
                                 .bearerFormat("JWT"))
+                        .addParameters("lang", new Parameter()
+                                .in("query")
+                                .name("lang")
+                                .description("Language parameter en or uk")
+                                .required(true)
+                                .schema(new Schema<String>()
+                                        .type("string")
+
+                                )
+                        )
                 );
     }
 }

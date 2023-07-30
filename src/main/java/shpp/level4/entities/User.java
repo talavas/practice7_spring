@@ -17,6 +17,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Builder
 @Entity(name = "users")
+@EqualsAndHashCode
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +48,7 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Role role;
+    private RoleEntity role;
 
     @ManyToMany
     @JoinTable(name = "users_permissions",

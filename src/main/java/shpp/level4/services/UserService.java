@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import shpp.level4.constants.Roles;
 import shpp.level4.dto.UserRequestDTO;
-import shpp.level4.entities.Role;
+import shpp.level4.entities.RoleEntity;
 import shpp.level4.entities.User;
 import shpp.level4.exceptions.UserNotFoundException;
 import shpp.level4.constants.Gender;
@@ -19,10 +19,7 @@ import shpp.level4.repositories.UserRepository;
 import shpp.level4.utils.MappingUtils;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,7 +38,7 @@ public class UserService implements UserDetailsService {
 
     public UserRequestDTO createUser(UserRequestDTO userRequest) {
         User user = MappingUtils.mapToUser(userRequest);
-        Optional<Role> roleOptional = roleRepository.findById(Roles.USER.getRoleId());
+        Optional<RoleEntity> roleOptional = roleRepository.findById(Roles.USER.getRoleId());
         roleOptional.ifPresent(user::setRole);
 
         log.debug("Creating user = {}", user);
@@ -106,11 +103,11 @@ public class UserService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(User user){
-        Collection<SimpleGrantedAuthority> authorities = new LinkedList<>();
+        Collection<SimpleGrantedAuthority> authorities = new HashSet<>();
         if(!user.getPermissions().isEmpty()){
             authorities = user.getPermissions().stream()
                     .map(p -> new SimpleGrantedAuthority(p.getName().toString()))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
         }
 
         authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRole().getName().name()));

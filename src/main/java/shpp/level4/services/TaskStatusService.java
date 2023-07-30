@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shpp.level4.constants.TaskStatusHandler;
 import shpp.level4.constants.TaskStatuses;
-import shpp.level4.entities.TaskStatus;
+import shpp.level4.entities.TaskStatusEntity;
 import shpp.level4.repositories.TaskStatusRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class TaskStatusService {
         this.taskStatusHandler = taskStatusHandler;
     }
 
-    public TaskStatus findByName(TaskStatuses status){
+    public TaskStatusEntity findByName(TaskStatuses status){
         return taskStatusRepository.findByName(status);
     }
 

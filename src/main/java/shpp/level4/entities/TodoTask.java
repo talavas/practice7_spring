@@ -26,7 +26,7 @@ public class TodoTask {
 
         @ManyToOne
         @JoinColumn(name = "status_id")
-        private TaskStatus status;
+        private TaskStatusEntity status;
 
         @JsonIgnore
         @ManyToOne

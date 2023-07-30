@@ -8,7 +8,7 @@ import shpp.level4.configs.TaskStatusHandlerConfig;
 import static org.junit.jupiter.api.Assertions.*;
 import static shpp.level4.constants.TaskStatuses.*;
 
-class TaskStatusHandlerTest {
+class TaskStatusEntityHandlerTest {
 
     private TaskStatusHandler taskStatusHandler;
 

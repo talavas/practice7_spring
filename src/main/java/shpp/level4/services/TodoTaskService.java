@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import shpp.level4.constants.TaskStatuses;
 import shpp.level4.dto.TodoTaskRequestDTO;
-import shpp.level4.entities.TaskStatus;
+import shpp.level4.entities.TaskStatusEntity;
 import shpp.level4.entities.TodoTask;
 import shpp.level4.entities.User;
 import shpp.level4.exceptions.UserNotFoundException;
@@ -32,11 +32,11 @@ public class TodoTaskService {
 
     public TodoTask updateTodoTask(Long id, TodoTaskRequestDTO taskRequestDTO) {
         Optional<TodoTask> task = todoTaskRepository.findById(id);
-        TaskStatus taskStatus = taskStatusRepository.findByName(TaskStatuses.valueOf(taskRequestDTO.getStatus()));
+        TaskStatusEntity taskStatusEntity = taskStatusRepository.findByName(TaskStatuses.valueOf(taskRequestDTO.getStatus()));
         if (task.isPresent()) {
             TodoTask updateTask = task.get();
             updateTask.setName(taskRequestDTO.getName());
-            updateTask.setStatus(taskStatus);
+            updateTask.setStatus(taskStatusEntity);
             return todoTaskRepository.save(updateTask);
         }else{
             throw new UserNotFoundException(
